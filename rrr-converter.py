@@ -176,7 +176,8 @@ def define_parameters():
  
 def scan_formatted_document():
 
-    print("formatting document...")
+    print("Scanning document content...")
+    # TODO - Read and parse a .txt document containing the generated AI response into a File_Content object.
 
 
 """Create a .docx file using the file content and parameters.
@@ -186,13 +187,13 @@ def scan_formatted_document():
     params - The custom user parameters to include when formatting the document.
 """
 def create_formatted_document(content, params):
-    # TODO - Use the parameters and information parsed to create a word doc with python-docx package
+
     print("Creating + Formatting document...")
 
     # Create the Word document.
     doc = Document()
 
-    # Construct included headers.
+    # Construct included headers w/ section content.
     for header in params.included_headers:
         run = doc.add_heading().add_run()
         font = run.font
@@ -200,6 +201,8 @@ def create_formatted_document(content, params):
         font.name = 'Calibri'
         font.size = Pt(12)
         run.text = header.capitalize()
+
+        # TODO - Write content parameter values here and transform into a bulleted list in the Word doc.
 
     # Print a confirmation to show the operation was successful.
     doc.save(params.save_path)
