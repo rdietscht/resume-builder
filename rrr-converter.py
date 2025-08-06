@@ -15,9 +15,33 @@ HEADER_OPTS = [
 class RRR_Parameters:
 
     def __init__(self):
+
+        # Initialize included headers.
         self.included_headers = []
         for header in HEADER_OPTS:
             self.included_headers.append(header)
+
+        # Initialize parse location.
+        self.parse_path = "\\Users\\rdiet\\Documents\\Old_Resume.docx"
+
+        # Initialize save location.
+        self.save_path = "\\Users\\rdiet\\Documents\\New_Resume.docx"
+
+    def set_parse_path(self, new_path):
+
+        # Replace linux path style if needed.
+        if ("/" in new_path):
+            new_path = new_path.replace("/", "\\")
+
+        self.parse_path = new_path
+
+    def set_save_path(self, new_path):
+
+        # Replace linux path style if needed.
+        if ("/" in new_path):
+            new_path = new_path.replace("/", "\\")
+
+        self.save_path = new_path
 
     def remove_header(self, header):
 
@@ -49,13 +73,20 @@ class RRR_Parameters:
                 formatted_str += '    + ' if header in self.included_headers else '    - '
                 formatted_str += f"{header.capitalize()}\n"
         formatted_str += "\n"
-
         return formatted_str
+
+    def show_parse_path(self):
+        return f"  Resume Content Path: {self.parse_path:>47}\n"
+
+    def show_save_path(self):
+        return f"  Document Save Location: {self.save_path:>44}\n"
 
     def __str__(self):
         formatted_str = f"{'CURRENT PARAMETERS':<25}\n"
 
         formatted_str += self.show_included_headers()
+        formatted_str += self.show_parse_path() + "\n"
+        formatted_str += self.show_save_path() + "\n"
 
         return formatted_str
 
@@ -132,16 +163,19 @@ def define_parameters():
         print(params)
 
         print("Please Select an option:")
-        print("(Q/Quit to cancel, H/Header to modify headers, N/Next to continue..)")
+        print("(H/Header to modify headers, P/Parse to modify parse location, S/Save to modify save location..)")
+        print("(Q/Quit to cancel, N/Next to continue with the saved parameters..)")
         print()
         print("Enter: ", end="")
         user_input = input().upper()
 
- 
+    return params
 
+ 
 def scan_formatted_document():
-    # TODO - Scan a document with a custom formatting to be able to successfully parse info
+
     print("formatting document...")
+
 
 """Create a .docx file using the file content and parameters.
 
@@ -151,7 +185,19 @@ def scan_formatted_document():
 """
 def create_formatted_document(content, params):
     # TODO - Use the parameters and information parsed to create a word doc with python-docx package
-    print("creating document...")
+    print("Creating + Formatting document...")
+
+    # Create the Word document.
+    doc = Document()
+
+    # Construct included headers.
+    for header in params.included_headers:
+        doc.add_heading(header.capitalize())
+
+    # Print a confirmation to show the operation was successful.
+    doc.save(params.save_path)
+    print(f"Done - Word document saved in: {params.save_path}")
+
 
 def wipe_terminal():
     # wipe terminal (either Windows/Linux)
