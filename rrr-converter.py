@@ -1,5 +1,7 @@
 import os
 from docx import Document
+from docx.shared import RGBColor
+from docx.shared import Pt
 
 # Section headers to look for when scanning the document.
 HEADER_OPTS = [
@@ -192,7 +194,12 @@ def create_formatted_document(content, params):
 
     # Construct included headers.
     for header in params.included_headers:
-        doc.add_heading(header.capitalize())
+        run = doc.add_heading().add_run()
+        font = run.font
+        font.color.rgb = RGBColor(0, 0, 0)
+        font.name = 'Calibri'
+        font.size = Pt(12)
+        run.text = header.capitalize()
 
     # Print a confirmation to show the operation was successful.
     doc.save(params.save_path)
