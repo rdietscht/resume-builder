@@ -42,6 +42,7 @@ class RRR_Parameters:
             new_path = new_path.replace("/", "\\")
 
         self.parse_path = new_path
+        print("Saved new parse path successfully")
 
     def set_save_path(self, new_path):
 
@@ -50,6 +51,7 @@ class RRR_Parameters:
             new_path = new_path.replace("/", "\\")
 
         self.save_path = new_path
+        print("Saved new save path successfully")
 
     def remove_header(self, header):
 
@@ -84,10 +86,10 @@ class RRR_Parameters:
         return formatted_str
 
     def show_parse_path(self):
-        return f"  Resume Content Path: {self.parse_path:>47}\n"
+        return f"  Resume Content Path: {self.parse_path:>47.47}\n"
 
     def show_save_path(self):
-        return f"  Document Save Location: {self.save_path:>44}\n"
+        return f"  Document Save Location: {self.save_path:>44.44}\n"
 
     def __str__(self):
         formatted_str = f"{'CURRENT PARAMETERS':<25}\n"
@@ -191,6 +193,44 @@ def define_parameters():
 
             print()
 
+        # Handle changing of parse/save location.
+        if (user_input == "P" or user_input == "PARSE" or user_input == "S" or user_input == "SAVE"):
+
+            wipe_terminal()
+
+            parse_flag = False # indicates the user is saving a new parse path
+
+            # Save to appropriate place.
+            if (user_input == "P" or user_input == "PARSE"):
+                parse_flag = True
+
+            print("Please type in the full path for the file.")
+            print("(Q/Quit to cancel and go back to previous menu..)")
+            print()
+            print("New Path: ", end="")
+            user_input = input()
+
+            while (user_input.upper() != 'Q' and user_input.upper() != 'QUIT'):
+
+                # Only accept non-empty path settings.
+                if (user_input != ""):
+                    if (parse_flag):
+                        wipe_terminal()
+                        params.set_parse_path(user_input)
+                        break
+                    else:
+                        wipe_terminal()
+                        params.set_save_path(user_input)
+                        break
+
+                print("Please type in the full path for the file.")
+                print("(Q/Quit to cancel and go back to previous menu..)")
+                print()
+                print("New Path: ", end="")
+                user_input = input()
+
+            print()
+
         # Show current status of the parameters.
         print(params)
 
@@ -207,6 +247,7 @@ def define_parameters():
 def scan_formatted_document(parse_path):
 
     print("Scanning document content...")
+    print()
 
     # TODO - Performance can be improved by interpreting each line/character as it is read.
     r_lines = [] # stores a list of strings representing each line in the file.
@@ -216,16 +257,17 @@ def scan_formatted_document(parse_path):
         r_lines = fh.readlines()
 
         # Show the user content of the file scanned.
-        print(f"{'RESUME CONTENT SCANNED':^50}")
-        print('=' * 50)
+        print(f"{'RESUME CONTENT SCANNED':^100}")
+        print('=' * 100)
         print()
         for r_line in r_lines:
-            if (len(r_line) > 50):
-                print(f"{r_line:<48}")
+            if (len(r_line) > 100):
+                print(f"{r_line:<97.97}...")
             else:
-                print(f"{r_line:<50}")
+                print(f"{r_line:<100.100}")
         print()
-        print('=' * 50)
+        print('=' * 100)
+        print()
 
     # Go through each line, creating File_Section instances as they are encountered.
     # TODO
@@ -258,6 +300,7 @@ def create_formatted_document(content, params):
     # Print a confirmation to show the operation was successful.
     doc.save(params.save_path)
     print(f"Done - Word document saved in: {params.save_path}")
+    print()
 
 
 def wipe_terminal():
