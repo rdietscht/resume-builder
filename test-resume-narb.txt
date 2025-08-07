@@ -1,32 +1,40 @@
-#Objective
-Computer Science student passionate about human-centered technology and cutting-edge automation, with real-world experience building accessible and scalable web and mobile applications using React, Next.js, and TypeScript. Proven ability to take ownership of user-facing systems, collaborate in cross-functional teams, and rapidly build and iterate in fast-paced startup environments. Eager to contribute to narb’s mission by developing seamless AI-powered voice-call systems while leveraging skills in full-stack engineering, real-time APIs, and voice-integrated UX.
+#Objective#
+"""Computer Science student passionate about human-centered technology and cutting-edge automation, with real-world experience building accessible and scalable web and mobile applications using React, Next.js, and TypeScript. Proven ability to take ownership of user-facing systems, collaborate in cross-functional teams, and rapidly build and iterate in fast-paced startup environments. Eager to contribute to narb’s mission by developing seamless AI-powered voice-call systems while leveraging skills in full-stack engineering, real-time APIs, and voice-integrated UX."""
 
-#Education
-$James Madison University (JMU), Harrisonburg, VA$, $Bachelor of Science in Computer Science$, $Minor in Robotics and Honors$, $May 2026$, $GPA: 3.63$, $Dean’s List Spring 2023 & Spring 2024$, $President’s List Fall 2022$, $UPE Honor Society Member$, $JMU Honors College Member$
+#Education#
+$James Madison University (JMU), Harrisonburg, VA$
+$Bachelor of Science in Computer Science$
+$Minor in Robotics and Honors$
+$May 2026$, $GPA: 3.63$
+$Dean’s List Spring 2023 & Spring 2024$
+$President’s List Fall 2022$
+$UPE Honor Society Member$
+$JMU Honors College Member$
 
-#Technical Skills
-$Languages$, Python, JavaScript, TypeScript, Java, PHP, C, Rust, Haskell
-$Frontend Technologies$, React, React Native, Next.js, Svelte, Tailwind CSS, HTML5, CSS3
-$Backend & APIs$, Node.js, Express.js, Django, RESTful APIs, PHP
-$Databases$, PostgreSQL, MySQL, MongoDB
-$DevOps & Tooling$, Git (CLI and GitHub), Docker, CI/CD Workflows, Trello, Bash, Agile (Scrum), WebSockets
-$Testing & Debugging$, Unit Testing (Jest, JUnit, Pytest), Integration Testing, Debugging Tools, Logging, Profiling
-$Design & UX$, Accessibility (WCAG), Responsive Design, Figma
-$Other$, ROS2, Raspberry Pi, Arduino, Visual Studio Code, Linux
+#Technical Skills#
+$Languages:$ Python, JavaScript, TypeScript, Java, PHP, C, Rust, Haskell
+$Frontend Technologies:$ React, React Native, Next.js, Svelte, Tailwind CSS, HTML5, CSS3
+$Backend & APIs:$ Node.js, Express.js, Django, RESTful APIs, PHP
+$Databases:$ PostgreSQL, MySQL, MongoDB
+$DevOps & Tooling:$ Git (CLI and GitHub), Docker, CI/CD Workflows, Trello, Bash, Agile (Scrum), WebSockets
+$Testing & Debugging:$ Unit Testing (Jest, JUnit, Pytest), Integration Testing, Debugging Tools, Logging, Profiling
+$Design & UX:$ Accessibility (WCAG), Responsive Design, Figma
+$Other:$ ROS2, Raspberry Pi, Arduino, Visual Studio Code, Linux
 
-#Relevant Experience
-$Software Consultant / Sr. Programmer, SerialByte, Short Pump, VA, Dec 2023 – Present$, Built full-stack web tools using React, Next.js, Tailwind, and Svelte, Collaborated directly with clients to gather requirements and iterate quickly, Designed scalable and accessible frontend systems with reusable components, Integrated RESTful APIs and implemented Git-based CI/CD workflows, Managed sprint tracking using Trello and team GitHub repos
-$Associate Software Engineer, GenXC Group, Remote, Apr 2021 – Aug 2024$, Developed UI components and integrated backend services using Next.js, Tailwind, and JavaScript, Built responsive, WCAG-compliant UIs for internal productivity platforms, Collaborated with designers and backend engineers to optimize workflows and resolve integration bugs, Wrote unit and integration tests to support scalable deployment
-$Lead Teaching Assistant, CS Department, James Madison University, Aug 2023 – Present$, Instructed and mentored students in foundational CS topics, Held weekly office hours supporting debugging and problem-solving in Python, Java, and C, Collaborated with faculty to identify course pain points and improve materials, Trained new TAs and contributed to inclusive classroom culture
+#Relevant Experience#
+$Software Consultant / Sr. Programmer, SerialByte, Short Pump, VA, Dec 2023 – Present$
+`*Built full-stack web tools using React, Next.js, Tailwind, and Svelte*Collaborated directly with clients to gather requirements and iterate quickly*Designed scalable and accessible frontend systems with reusable components*Integrated RESTful APIs and implemented Git-based CI/CD workflows*Managed sprint tracking using Trello and team GitHub repos`
+$Associate Software Engineer, GenXC Group, Remote, Apr 2021 – Aug 2024$`*Developed UI components and integrated backend services using Next.js, Tailwind, and JavaScript*Built responsive, WCAG-compliant UIs for internal productivity platforms*Collaborated with designers and backend engineers to optimize workflows and resolve integration bugs*Wrote unit and integration tests to support scalable deployment`
+$Lead Teaching Assistant, CS Department, James Madison University, Aug 2023 – Present$`*Instructed and mentored students in foundational CS topics*Held weekly office hours supporting debugging and problem-solving in Python, Java, and C*Collaborated with faculty to identify course pain points and improve materials*Trained new TAs and contributed to inclusive classroom culture`
 
-#Projects/Research
+#Projects/Research#
 $Obstacle Avoidance Programmer, JACart Robotics Research Group, Aug 2024 – May 2025$, Wrote ROS2 Python scripts for real-time obstacle detection using LiDAR and stereo cameras, Designed automation scripts in Bash with Docker for project setup, Researched ML models for autonomous navigation and documented findings
 $Mixed Fraction Calculator App$, Developed React + Python app for K-12 education use, emphasizing clarity and accessibility
 $Author Portfolio Website$, Built with Next.js and Markdown-based CMS with responsive and optimized layout
 $PMO Dashboard Suite$, Contributed to frontend/backend components and API integration for internal GenXC tools
 $Summer Research Assistant, Intro. to Robotics Course, JMU, Jun 2025 – Jul 2025$, Integrated Turtlebot4 and ROS2 Jazzy systems into course assignments, Documented system setup and created new hands-on learning materials for student engagement
 
-#Additional Highlights
+#Additional Highlights#
 $President, JMU Robotics Club, Aug 2025 – Present$, Organized robotics workshops and managed team projects
 $Treasurer and Lead Instructor, JMU Latin Dance Club, Aug 2025 – Present$, Led community-building initiatives and taught weekly classes
 $Volunteer, Madistem STEM Outreach, March 2023, 2024, 2025$, Mentored middle schoolers in STEM workshops
@@ -34,5 +42,5 @@ $Competitive Programming Club Member, Aug 2023 – May 2024$, Competed in algori
 $HackViolet Hackathon Participant, Feb 2023, 2025$, Built AI-enhanced apps with Git, Docker, and cloud integrations
 $FIRST Robotics Team Member (FRC), Short Pump, VA, Sep 2019 – May 2022$, Developed robot subsystems and led hardware/software integration
 
-#Awards/Honors
+#Awards/Honors#
 $Dean’s List Spring 2023$, $Dean’s List Spring 2024$, $President’s List Fall 2022$, $UPE Honor Society Standing$, $JMU Honors College Standing$, $1st Place FBLA Regional/State Competition$, $NHS Standing$
