@@ -14,6 +14,12 @@ HEADER_OPTS = [
     "AWARDS/HONORS"
 ]
 
+# Currently supported resume content types.
+CONTENT_TYPES = [
+    "BULLETED",
+    "DESCRIPTION"
+]
+
 class RRR_Parameters:
 
     def __init__(self):
@@ -92,11 +98,35 @@ class RRR_Parameters:
 
         return formatted_str
 
+# Stores all the content and formatting info for each section of a single resume document.
+class File_Handle:
+
+    def __init__(self):
+        self.sections = [] # sections stores Section instances
 
 
+# Stores any subsections and their content.
+class File_Section:
+
+    def __init__(self, title):
+        self.title = title
+        self.subs = [] # for sections with no content (i.e., a single paragraph) a special "__do_not_use" section will be appended
+
+
+class File_Sub:
+
+    def __init__(self, title):
+        self.title = title
+        self.content_list = [] # stores array of File_Content instances
+
+
+# Stores a single unit of file content, either a bulleted list or a paragraph description.
 class File_Content:
-    # TODO - define this
-    pass
+
+    def __init__(self, content_type, content):
+        self.type = content_type
+        self.content = content # of type: string[] (BULLETED) | string (DESCRIPTION)
+
 
 # UTILITY FUNCTIONS
 def define_parameters():
