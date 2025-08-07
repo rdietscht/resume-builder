@@ -106,6 +106,14 @@ class File_Handle:
     def __init__(self):
         self.sections = [] # sections stores Section instances
 
+    def __str__(self):
+
+        formatted_str = "  File Sections:\n"
+        for section in self.sections:
+            formatted_str += str(section)
+
+        return formatted_str
+
 
 # Stores any subsections and their content.
 class File_Section:
@@ -249,7 +257,7 @@ def scan_formatted_document(parse_path):
     print("Scanning document content...")
     print()
 
-    # TODO - Performance can be improved by interpreting each line/character as it is read.
+    # TODO - Performance can def be improved by interpreting each line/character as it is read.
     r_lines = [] # stores a list of strings representing each line in the file.
     with open(parse_path) as fh:
 
@@ -269,8 +277,48 @@ def scan_formatted_document(parse_path):
         print('=' * 100)
         print()
 
-    # Go through each line, creating File_Section instances as they are encountered.
-    # TODO
+    # Go through each line, adding to the File_Handle sections array.
+    file_handle = File_Handle()
+    for line_i in range(len(r_lines)):
+
+        # CASE - Section header (#) encountered.
+        if ("#" in r_lines[line_i]):
+
+            fs = File_Section()
+
+            # Consume the section title.
+            entered_header = False
+            section_title = ""
+            for char in r_lines[line_i]:
+
+                # Ignore the initial header character.
+                if (char == "#"):
+                    if (not entered_header): # we have entered the header.
+                        entered_header = True
+                    else:
+                        section_title += char
+                elif (entered_header):
+                    section_title += char
+
+            # Consume the section's content, including any sub-sections, bulleted points, and paragraphs.
+            line_i = consume_section(line_i, r_lines, fs)
+            file_handle.sections.append(fs)
+
+    # Return the file_handle with all its stored content.
+    return file_handle
+
+
+def consume_section(index, lines, fs):
+
+    # Keep interpreting lines until a new section header is encountered.
+    while not '#' in lines[index]:
+
+        # TODO - Interpret/create sub-sections for resume content.
+
+        # Progress to next line.
+        index += 1
+
+    return index
 
 
 """Create a .docx file using the file content and parameters.
@@ -316,7 +364,7 @@ if __name__ == '__main__':
     parameters = define_parameters()
 
     # Obtain file information and content details. Log any errors encountered.
-    sections = scan_formatted_document(parameters.parse_path)
+    f_handle = scan_formatted_document(parameters.parse_path)
 
     # Create a new word file using configured settings.
-    create_formatted_document(sections, parameters)
+    create_formatted_document(f_handle, parameters)
