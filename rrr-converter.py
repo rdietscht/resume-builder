@@ -204,10 +204,31 @@ def define_parameters():
     return params
 
  
-def scan_formatted_document():
+def scan_formatted_document(parse_path):
 
     print("Scanning document content...")
-    # TODO - Read and parse a .txt document containing the generated AI response into a File_Content object.
+
+    # TODO - Performance can be improved by interpreting each line/character as it is read.
+    r_lines = [] # stores a list of strings representing each line in the file.
+    with open(parse_path) as fh:
+
+        # Gather each line of the file.
+        r_lines = fh.readlines()
+
+        # Show the user content of the file scanned.
+        print(f"{'RESUME CONTENT SCANNED':^50}")
+        print('=' * 50)
+        print()
+        for r_line in r_lines:
+            if (len(r_line) > 50):
+                print(f"{r_line:<48}")
+            else:
+                print(f"{r_line:<50}")
+        print()
+        print('=' * 50)
+
+    # Go through each line, creating File_Section instances as they are encountered.
+    # TODO
 
 
 """Create a .docx file using the file content and parameters.
@@ -252,7 +273,7 @@ if __name__ == '__main__':
     parameters = define_parameters()
 
     # Obtain file information and content details. Log any errors encountered.
-    content = scan_formatted_document()
+    sections = scan_formatted_document(parameters.parse_path)
 
     # Create a new word file using configured settings.
-    create_formatted_document(content, parameters)
+    create_formatted_document(sections, parameters)
