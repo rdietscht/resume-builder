@@ -22,6 +22,7 @@ This utility works by scanning resume content from a very particular style of te
 * Section content may vary between either a text description (i.e., a paragraph) or a bulleted list.
 * Newlines are treated as they are. If a newline is encountered, the word document will introduce a line-break. **The only exception to this rule are bullet points (*) from a bulleted list, which will _automatically_ add a line-break to render the new bullet point.**
 * Each section header begins with a pound (#) and should be isolated on its own line.
+* A section ends when an empty line is encountered.
 * Each sub-section header within a section is surrounded by dollar sign ($).
 * Bulleted list items are surrounded by a backticks (`) where each bullet point is delimited by an asterisk (*).
 
