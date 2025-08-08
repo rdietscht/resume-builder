@@ -304,8 +304,6 @@ def scan_formatted_document(parse_path):
         # CASE - Section header (#) encountered.
         if ("#" in r_lines[line_i]):
 
-            fs = File_Section()
-
             # Consume the section title.
             entered_header = False
             section_title = ""
@@ -318,9 +316,14 @@ def scan_formatted_document(parse_path):
                     else:
                         section_title += char
                 elif (entered_header):
+
+                    if (char == '\n'):
+                        break
+
                     section_title += char
 
             # Consume the section's content, including any sub-sections, bulleted points, and paragraphs.
+            fs = File_Section(section_title)
             line_i = consume_section(line_i, r_lines, fs)
             file_handle.sections.append(fs)
 
@@ -330,8 +333,8 @@ def scan_formatted_document(parse_path):
 
 def consume_section(index, lines, fs):
 
-    # Keep interpreting lines until a new section header is encountered.
-    while not '#' in lines[index]:
+    # Keep interpreting lines until the end of the section header is encountered or the lines end.
+    while index < len(lines) and lines[index] != '\n':
 
         # TODO - Interpret/create sub-sections for resume content.
 
@@ -385,6 +388,7 @@ if __name__ == '__main__':
 
     # Obtain file information and content details. Log any errors encountered.
     f_handle = scan_formatted_document(parameters.parse_path)
+    print(f_handle) # DEBUGGING!
 
     # Create a new word file using configured settings.
     create_formatted_document(f_handle, parameters)
