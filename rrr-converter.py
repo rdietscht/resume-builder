@@ -448,28 +448,66 @@ def consume_section(index, lines, fs):
     content - A File_Content instance with the contents to be included in the formatted docx.
     params - The custom user parameters to include when formatting the document.
 """
-def create_formatted_document(content, params):
+def create_formatted_document(content: File_Handle, params: RRR_Parameters):
 
     print("Creating + Formatting document...")
 
     # Create the Word document.
     doc = Document()
 
-    # Construct included headers w/ section content.
-    for header in params.included_headers:
+    # OLD IMPLEMENTATION!
+    # for header in params.included_headers:
+    #     run = doc.add_heading().add_run()
+    #     font = run.font
+    #     font.color.rgb = RGBColor(0, 0, 0)
+    #     font.name = 'Calibri'
+    #     font.size = Pt(12)
+    #     run.text = header.capitalize()
+
+    # Write each section with their associated content.
+    for section in content.sections:
+
+        section: File_Section = section
+
+        # Skip any sections omitted by the user parameters.
+        if (not section.title.upper() in params.included_headers):
+            print(f"Skipping section write: \"{section.title}\"...")
+            continue
+
+        # FORMATTING FOR SECTIONS.
         run = doc.add_heading().add_run()
         font = run.font
-        font.color.rgb = RGBColor(0, 0, 0)
+        font.color.rgb = RGBColor(0,0,0)
         font.name = 'Calibri'
         font.size = Pt(12)
-        run.text = header.capitalize()
+        run.text = section.title.capitalize()
 
-        # TODO - Write content parameter values here and transform into a bulleted list in the Word doc.
+        # Write each of the sections content.
+        for content in section.content_list:
+
+            # Switch between each content type and sub-headers.
+            content_type = type(content)
+            if (content_type == File_Sub): # SUB-HEADERS
+                pass
+            elif (content_type == File_Content and content.type == CONTENT_TYPES[1]): # DESCRIPTIONS
+                run = doc.add_paragraph().add_run()
+                font = run.font
+                font.color.rgb = RGBColor(0,0,0)
+                font.name = 'Calibri'
+                font.size = Pt(10)
+                run.text = content.content
+            elif (content_type == File_Content and content.type == CONTENT_TYPES[0]): # BULLETED
+                pass
+            else:
+                print()
+                print(f"ERR: An invalid type was found when writing section content to the document ({content_type})")
+                print()
+                quit()
+
 
     # Print a confirmation to show the operation was successful.
     doc.save(params.save_path)
     print(f"Done - Word document saved in: {params.save_path}")
-    print()
 
 
 def wipe_terminal():
