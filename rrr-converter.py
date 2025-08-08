@@ -120,13 +120,13 @@ class File_Section:
 
     def __init__(self, title):
         self.title = title
-        self.subs = [] # for sections with no content (i.e., a single paragraph) a special "__do_not_use" section will be appended
+        self.content_list = [] # stores array of File_Sub | File_Content instances
 
     def __str__(self): # debugging only
 
         formatted_str = f"{self.title}:\n"
-        for sub in self.subs:
-            formatted_str += f"\t  {str(sub)}\n"
+        for content in self.content_list:
+            formatted_str += f"\t  {str(content)}\n"
 
         return formatted_str
 
@@ -135,15 +135,10 @@ class File_Sub:
 
     def __init__(self, title):
         self.title = title
-        self.content_list = [] # stores array of File_Content instances
 
     def __str__(self):
 
-        formatted_str = f"{self.title}:\n"
-        for content in self.content_list:
-            formatted_str += f"\t\t{str(content)}\n"
-
-        return formatted_str
+        return f"{self.title}"
 
 
 # Stores a single unit of file content, either a bulleted list or a paragraph description.
@@ -155,7 +150,7 @@ class File_Content:
 
     def __str__(self):
 
-        return f"(TYPE: {self.type}, CONTENT: {self.content:.30})"
+        return f"(TYPE: {self.type}, CONTENT: \"{str(self.content):.27}...\")"
 
 
 # UTILITY FUNCTIONS
@@ -324,7 +319,9 @@ def scan_formatted_document(parse_path):
 
             # Consume the section's content, including any sub-sections, bulleted points, and paragraphs.
             fs = File_Section(section_title)
-            line_i = consume_section(line_i, r_lines, fs)
+            print(f"Parsing section starting at line {line_i} (\"{section_title}\")")
+            line_i = consume_section(line_i + 1, r_lines, fs)
+            print(f"Consumed section; resuming search for sections from {line_i}")
             file_handle.sections.append(fs)
 
     # Return the file_handle with all its stored content.
@@ -336,7 +333,108 @@ def consume_section(index, lines, fs):
     # Keep interpreting lines until the end of the section header is encountered or the lines end.
     while index < len(lines) and lines[index] != '\n':
 
-        # TODO - Interpret/create sub-sections for resume content.
+        # A section content may consist of sub-section headers or content (either descriptions or bulleted lists)
+        # In other words, we have the following 3 entrance states:
+        #   $    - Create a new sub-section with the provided title. End any previous sub-section we were on.
+        #   """  - Create and append a "DESCRIPTION" File_Content instance.
+        #   ``   - Create and append a "BULLETED" File_Content instance.
+        i = 0 # character index
+        while i < (len(lines[index]) - 1):
+
+            if (i + 2 < len(lines[index]) and lines[index][i:i + 3] == '"""'): # DESCRIPTION ENTRANCE
+                # print("Encountered description!")
+
+                i += 3 # skip past the three quotes
+
+                # Keep consuming regular text characters until the ending (""") token is encountered.
+                d_content = ""
+                closed = False
+                while i + 2 < len(lines[index]): # TODO - FOR THIS AND DESC, THIS CONSTRAINT KEEPS MULTI-LINE SYNTAX FROM WORKING. MODIFY THIS SO THAT END DELIMITERS MAY WORK ON A SEPARATE LINE.
+
+                    # Terminate loop when ending description token is found. Move index past the characters.
+                    if (lines[index][i:i + 3] == '"""'):
+                        closed = True
+                        i += 3
+                        break
+
+                    # Consume the character and move to the next.
+                    d_content += lines[index][i]
+                    i += 1
+
+                # EARLY EXIT - The user template left an open description before ending the line.
+                if (not closed):
+                    print()
+                    print(f"ERR: Found unclosed description content on line {index}")
+                    print()
+                    quit()
+
+                fs.content_list.append(File_Content(CONTENT_TYPES[1], d_content))
+
+            elif (lines[index][i] == '`'): # BULLETED ENTRANCE
+                # print("Encountered bulleted list!")
+
+                i += 1 # skip past token
+
+                # Keep consuming text characters, including delimiters.
+                b_raw_content = ""
+                closed = False
+                while (i < len(lines[index])): # TODO - FOR THIS AND DESC, THIS CONSTRAINT KEEPS MULTI-LINE SYNTAX FROM WORKING. MODIFY THIS SO THAT END DELIMITERS MAY WORK ON A SEPARATE LINE.
+
+                    # Terminate loop when ending bulleted token is found. Move index past end token.
+                    if (lines[index][i] == "`"):
+                        closed = True
+                        i += 1
+                        break
+
+                    # Consume the character and move to the next.
+                    b_raw_content += lines[index][i]
+                    i += 1
+
+                # EARLY EXIT - The user template left an open description before ending the line.
+                if (not closed):
+                    print()
+                    print(f"ERR: Found unclosed list content on line {index}")
+                    print()
+                    quit()
+
+                # After raw content is consumed, create an array of string values using the delimiters.
+                b_content = b_raw_content.split('*')[1:-1]
+                fs.content_list.append(File_Content(CONTENT_TYPES[0], b_content))
+
+            elif (lines[index][i] == '$'): # NAMED SUB-HEADER ENTRANCE
+                # print("Encountered sub-section!") # DEBUGGING!
+
+                i += 1 # skip past token
+
+                # Consume the characters of the sub-section title.
+                sub_title = ""
+                closed = False
+                while (i < len(lines[index])):
+
+                    # Encountered sub-header end. Move index past the end token.
+                    if (lines[index][i] == '$'):
+                        closed = True
+                        i += 1
+                        break
+
+                    # Add to the sub title.
+                    sub_title += lines[index][i]
+                    i += 1
+
+                # EARLY EXIT - The user template left an open description before ending the line.
+                if (not closed):
+                    print()
+                    print(f"ERR: Found unclosed subheader on line {index}")
+                    print()
+                    quit()
+
+                fs.content_list.append(File_Sub(sub_title))
+
+            else:
+                print()
+                print(f"ERR: Encountered unexpected token ( {lines[index][i]} ) at position ({index}, {i})")
+                print()
+                quit()
 
         # Progress to next line.
         index += 1

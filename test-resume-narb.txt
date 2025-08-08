@@ -5,21 +5,21 @@
 $James Madison University (JMU), Harrisonburg, VA$
 $Bachelor of Science in Computer Science$
 $Minor in Robotics and Honors$
-$May 2026$, $GPA: 3.63$
+$May 2026, GPA: 3.63$
 $Dean’s List Spring 2023 & Spring 2024$
 $President’s List Fall 2022$
 $UPE Honor Society Member$
 $JMU Honors College Member$
 
 #Technical Skills
-$Languages:$ Python, JavaScript, TypeScript, Java, PHP, C, Rust, Haskell
-$Frontend Technologies:$ React, React Native, Next.js, Svelte, Tailwind CSS, HTML5, CSS3
-$Backend & APIs:$ Node.js, Express.js, Django, RESTful APIs, PHP
-$Databases:$ PostgreSQL, MySQL, MongoDB
-$DevOps & Tooling:$ Git (CLI and GitHub), Docker, CI/CD Workflows, Trello, Bash, Agile (Scrum), WebSockets
-$Testing & Debugging:$ Unit Testing (Jest, JUnit, Pytest), Integration Testing, Debugging Tools, Logging, Profiling
-$Design & UX:$ Accessibility (WCAG), Responsive Design, Figma
-$Other:$ ROS2, Raspberry Pi, Arduino, Visual Studio Code, Linux
+$Languages: $"""Python, JavaScript, TypeScript, Java, PHP, C, Rust, Haskell"""
+$Frontend Technologies: $"""React, React Native, Next.js, Svelte, Tailwind CSS, HTML5, CSS3"""
+$Backend & APIs: $"""Node.js, Express.js, Django, RESTful APIs, PHP"""
+$Databases: $"""PostgreSQL, MySQL, MongoDB"""
+$DevOps & Tooling: $"""Git (CLI and GitHub), Docker, CI/CD Workflows, Trello, Bash, Agile (Scrum), WebSockets"""
+$Testing & Debugging: $"""Unit Testing (Jest, JUnit, Pytest), Integration Testing, Debugging Tools, Logging, Profiling"""
+$Design & UX: $"""Accessibility (WCAG), Responsive Design, Figma"""
+$Other: $"""ROS2, Raspberry Pi, Arduino, Visual Studio Code, Linux"""
 
 #Relevant Experience
 $Software Consultant / Sr. Programmer, SerialByte, Short Pump, VA, Dec 2023 – Present$
