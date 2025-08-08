@@ -106,11 +106,11 @@ class File_Handle:
     def __init__(self):
         self.sections = [] # sections stores Section instances
 
-    def __str__(self):
+    def __str__(self): # debugging only
 
         formatted_str = "  File Sections:\n"
         for section in self.sections:
-            formatted_str += str(section)
+            formatted_str += f"\t{str(section)}\n"
 
         return formatted_str
 
@@ -122,12 +122,28 @@ class File_Section:
         self.title = title
         self.subs = [] # for sections with no content (i.e., a single paragraph) a special "__do_not_use" section will be appended
 
+    def __str__(self): # debugging only
+
+        formatted_str = f"{self.title}:\n"
+        for sub in self.subs:
+            formatted_str += f"\t  {str(sub)}\n"
+
+        return formatted_str
+
 
 class File_Sub:
 
     def __init__(self, title):
         self.title = title
         self.content_list = [] # stores array of File_Content instances
+
+    def __str__(self):
+
+        formatted_str = f"{self.title}:\n"
+        for content in self.content_list:
+            formatted_str += f"\t\t{str(content)}\n"
+
+        return formatted_str
 
 
 # Stores a single unit of file content, either a bulleted list or a paragraph description.
@@ -136,6 +152,10 @@ class File_Content:
     def __init__(self, content_type, content):
         self.type = content_type
         self.content = content # of type: string[] (BULLETED) | string (DESCRIPTION)
+
+    def __str__(self):
+
+        return f"(TYPE: {self.type}, CONTENT: {self.content:.30})"
 
 
 # UTILITY FUNCTIONS
