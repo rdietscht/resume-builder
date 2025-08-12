@@ -458,24 +458,15 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
     # Create the Word document.
     doc = Document()
 
-    # OLD IMPLEMENTATION!
-    # for header in params.included_headers:
-    #     run = doc.add_heading().add_run()
-    #     font = run.font
-    #     font.color.rgb = RGBColor(0, 0, 0)
-    #     font.name = 'Calibri'
-    #     font.size = Pt(12)
-    #     run.text = header.capitalize()
-
     # Write each section with their associated content.
     for section in content.sections:
 
         section: File_Section = section
 
-        # Skip any sections omitted by the user parameters.
-        if (not section.title.upper() in params.included_headers):
-            print(f"Skipping section write: \"{section.title}\"...")
-            continue
+        # # Skip any sections omitted by the user parameters. # REMOVED OLD CONSTRAINT
+        # if (not section.title.upper() in params.included_headers):
+        #     print(f"Skipping section write: \"{section.title}\"...")
+        #     continue
 
         # FORMATTING FOR SECTIONS.
         run = doc.add_heading().add_run()
@@ -483,7 +474,7 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
         font.color.rgb = RGBColor(0,0,0)
         font.name = 'Calibri'
         font.size = Pt(12)
-        run.text = section.title.capitalize()
+        run.text = section.title
 
         # Write each of the sections content.
         for content in section.content_list:
@@ -506,7 +497,11 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
                 font.size = Pt(11)
                 run.text = content.content
             elif (content_type == File_Content and content.type == CONTENT_TYPES[0]): # BULLETED
-                pass
+
+                for bullet_content in content.content:
+                    run = doc.add_paragraph(style='List Bullet').add_run()
+                    run.text = bullet_content
+
             else:
                 print()
                 print(f"ERR: An invalid type was found when writing section content to the document ({content_type})")

@@ -1,7 +1,7 @@
-#Objective
+#OBJECTIVE
 """Computer Science student passionate about human-centered technology and cutting-edge automation, with real-world experience building accessible and scalable web and mobile applications using React, Next.js, and TypeScript. Proven ability to take ownership of user-facing systems, collaborate in cross-functional teams, and rapidly build and iterate in fast-paced startup environments. Eager to contribute to narb’s mission by developing seamless AI-powered voice-call systems while leveraging skills in full-stack engineering, real-time APIs, and voice-integrated UX."""
 
-#Education
+#EDUCATION
 $James Madison University (JMU), Harrisonburg, VA$
 $Bachelor of Science in Computer Science$
 $Minor in Robotics and Honors$
@@ -11,7 +11,7 @@ $President’s List Fall 2022$
 $UPE Honor Society Member$
 $JMU Honors College Member$
 
-#Technical Skills
+#TECHNICAL SKILLS
 $Languages: $"""Python, JavaScript, TypeScript, Java, PHP, C, Rust, Haskell"""
 $Frontend Technologies: $"""React, React Native, Next.js, Svelte, Tailwind CSS, HTML5, CSS3"""
 $Backend & APIs: $"""Node.js, Express.js, Django, RESTful APIs, PHP"""
@@ -21,7 +21,7 @@ $Testing & Debugging: $"""Unit Testing (Jest, JUnit, Pytest), Integration Testin
 $Design & UX: $"""Accessibility (WCAG), Responsive Design, Figma"""
 $Other: $"""ROS2, Raspberry Pi, Arduino, Visual Studio Code, Linux"""
 
-#Relevant Experience
+#RELEVANT EXPERIENCE
 $Software Consultant / Sr. Programmer, SerialByte, Short Pump, VA, Dec 2023 – Present$
 `*Built full-stack web tools using React, Next.js, Tailwind, and Svelte*Collaborated directly with clients to gather requirements and iterate quickly*Designed scalable and accessible frontend systems with reusable components*Integrated RESTful APIs and implemented Git-based CI/CD workflows*Managed sprint tracking using Trello and team GitHub repos`
 $Associate Software Engineer, GenXC Group, Remote, Apr 2021 – Aug 2024$`*Developed UI components and integrated backend services using Next.js, Tailwind, and JavaScript*Built responsive, WCAG-compliant UIs for internal productivity platforms*Collaborated with designers and backend engineers to optimize workflows and resolve integration bugs*Wrote unit and integration tests to support scalable deployment`
