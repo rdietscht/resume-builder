@@ -20,7 +20,7 @@ This utility works by scanning resume content from a very particular style of te
 * A resume is split into "sections" with each section containing a section header and section content.
 * A section's content may be divided into "sub-sections" that denote a grouping of items related to the overhead section topic. A sub-section may also be used more generally to render a larger bulleted point.
 * Section content may vary between either a text description (i.e., a paragraph) or a bulleted list.
-* Newlines are treated as they are. Only when a newline is encountered will the word document introduce a line-break. **The only exception to this rule are bullet points (*) from a bulleted list and sub-sections ($), which will _automatically_ add a line-break to render the new bullet point.**
+* Newlines are treated as they are. Only when a newline is encountered will the word document introduce a line-break. **The only exception to this rule are bullet points (*) from a bulleted list and sections/sub-sections (#/$), which will _automatically_ add a line-break to render the new bullet point.**
 * Each section header begins with a pound (#) and should be isolated on its own line.
 * A section ends when an empty line is encountered.
 * Each sub-section header within a section is surrounded by dollar sign ($).

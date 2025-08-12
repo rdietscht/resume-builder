@@ -274,10 +274,13 @@ def scan_formatted_document(parse_path):
 
     # TODO - Performance can def be improved by interpreting each line/character as it is read.
     r_lines = [] # stores a list of strings representing each line in the file.
-    with open(parse_path) as fh:
+    with open(parse_path, 'r', encoding='utf-8') as fh:
 
         # Gather each line of the file.
-        r_lines = fh.readlines()
+        line = fh.readline()
+        while line != "":
+            r_lines.append(line)
+            line = fh.readline()
 
         # Show the user content of the file scanned.
         print(f"{'RESUME CONTENT SCANNED':^100}")
@@ -488,13 +491,19 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
             # Switch between each content type and sub-headers.
             content_type = type(content)
             if (content_type == File_Sub): # SUB-HEADERS
-                pass
+                run = doc.add_paragraph().add_run()
+                font = run.font
+                font.color.rgb = RGBColor(0,0,0)
+                font.name = 'Calibri'
+                font.size = Pt(11)
+                font.bold = True
+                run.text = content.title
             elif (content_type == File_Content and content.type == CONTENT_TYPES[1]): # DESCRIPTIONS
                 run = doc.add_paragraph().add_run()
                 font = run.font
                 font.color.rgb = RGBColor(0,0,0)
                 font.name = 'Calibri'
-                font.size = Pt(10)
+                font.size = Pt(11)
                 run.text = content.content
             elif (content_type == File_Content and content.type == CONTENT_TYPES[0]): # BULLETED
                 pass
