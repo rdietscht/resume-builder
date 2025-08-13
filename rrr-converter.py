@@ -17,7 +17,8 @@ HEADER_OPTS = [
 # Currently supported resume content types.
 CONTENT_TYPES = [
     "BULLETED",
-    "DESCRIPTION"
+    "DESCRIPTION",
+    "NEWLINE"
 ]
 
 class RRR_Parameters:
@@ -146,7 +147,7 @@ class File_Content:
 
     def __init__(self, content_type, content):
         self.type = content_type
-        self.content = content # of type: string[] (BULLETED) | string (DESCRIPTION)
+        self.content = content # of type: string[] (BULLETED) | string (DESCRIPTION/NEWLINE)
 
     def __str__(self):
 
@@ -342,7 +343,7 @@ def consume_section(index, lines, fs):
         #   """  - Create and append a "DESCRIPTION" File_Content instance.
         #   ``   - Create and append a "BULLETED" File_Content instance.
         i = 0 # character index
-        while i < (len(lines[index]) - 1):
+        while i < len(lines[index]):
 
             if (i + 2 < len(lines[index]) and lines[index][i:i + 3] == '"""'): # DESCRIPTION ENTRANCE
                 # print("Encountered description!")
@@ -433,6 +434,12 @@ def consume_section(index, lines, fs):
 
                 fs.content_list.append(File_Sub(sub_title))
 
+            elif (lines[index][i] == '\n'):
+
+                nl_content = File_Content(CONTENT_TYPES[2], '_LINE_BREAK_')
+                fs.content_list.append(nl_content)
+                i += 1
+
             else:
                 print()
                 print(f"ERR: Encountered unexpected token ( {lines[index][i]} ) at position ({index}, {i})")
@@ -469,7 +476,12 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
         #     continue
 
         # FORMATTING FOR SECTIONS.
-        run = doc.add_heading().add_run()
+        header = doc.add_heading()
+        p_format = header.paragraph_format
+        p_format.space_before = Pt(1)
+        p_format.space_after = Pt(2)
+        p_format.left_indent = Pt(2)
+        run = header.add_run()
         font = run.font
         font.color.rgb = RGBColor(0,0,0)
         font.name = 'Calibri'
@@ -477,31 +489,45 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
         run.text = section.title
 
         # Write each of the sections content.
+        paragraph = None
+        run = None
         for content in section.content_list:
 
             # Switch between each content type and sub-headers.
             content_type = type(content)
             if (content_type == File_Sub): # SUB-HEADERS
-                run = doc.add_paragraph().add_run()
+                if (paragraph == None):
+                    paragraph = doc.add_paragraph()
+                    run = paragraph.add_run()
+                else:
+                    run = paragraph.add_run()
                 font = run.font
                 font.color.rgb = RGBColor(0,0,0)
                 font.name = 'Calibri'
                 font.size = Pt(11)
                 font.bold = True
-                run.text = content.title
+                run.text += content.title
             elif (content_type == File_Content and content.type == CONTENT_TYPES[1]): # DESCRIPTIONS
-                run = doc.add_paragraph().add_run()
+                if (paragraph == None):
+                    paragraph = doc.add_paragraph()
+                    run = paragraph.add_run()
+                else:
+                    run = paragraph.add_run()
                 font = run.font
                 font.color.rgb = RGBColor(0,0,0)
                 font.name = 'Calibri'
+                font.bold = False # TODO - FIX THIS! ALL RUNS SHARE THE SAME SETTINGS!
                 font.size = Pt(11)
-                run.text = content.content
+                run.text += content.content
             elif (content_type == File_Content and content.type == CONTENT_TYPES[0]): # BULLETED
-
                 for bullet_content in content.content:
                     run = doc.add_paragraph(style='List Bullet').add_run()
                     run.text = bullet_content
-
+                paragraph = None # reset the paragraph after bullet list items
+            elif (content_type == File_Content and content.type == CONTENT_TYPES[2]): # NEWLINE
+                if (paragraph != None):
+                    run = paragraph.add_run()
+                    run.add_break()
             else:
                 print()
                 print(f"ERR: An invalid type was found when writing section content to the document ({content_type})")
