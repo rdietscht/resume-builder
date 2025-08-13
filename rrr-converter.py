@@ -4,6 +4,7 @@ from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import RGBColor
 from docx.shared import Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 
 # Section headers to look for when scanning the document.
 HEADER_OPTS = [
@@ -543,6 +544,16 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
 
     # Create the Word document.
     doc = Document()
+
+    # Add personal info at the top of the document.
+    pp = doc.add_paragraph() # hehe
+    pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    run = pp.add_run()
+    font = run.font
+    font.bold = True
+    font.name = 'Calibri'
+    font.size = Pt(12) 
+    run.text = params.user_name + "\n"
 
     # Write each section with their associated content.
     for section in content.sections:
