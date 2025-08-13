@@ -498,6 +498,10 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
             if (content_type == File_Sub): # SUB-HEADERS
                 if (paragraph == None):
                     paragraph = doc.add_paragraph()
+                    p_format = paragraph.paragraph_format
+                    p_format.line_spacing = 1.0
+                    p_format.space_before = Pt(0)
+                    p_format.space_after = Pt(0)
                     run = paragraph.add_run()
                 else:
                     run = paragraph.add_run()
@@ -510,6 +514,10 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
             elif (content_type == File_Content and content.type == CONTENT_TYPES[1]): # DESCRIPTIONS
                 if (paragraph == None):
                     paragraph = doc.add_paragraph()
+                    p_format = paragraph.paragraph_format
+                    p_format.line_spacing = 1.0
+                    p_format.space_before = Pt(0)
+                    p_format.space_after = Pt(0)
                     run = paragraph.add_run()
                 else:
                     run = paragraph.add_run()
@@ -521,13 +529,19 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
                 run.text += content.content
             elif (content_type == File_Content and content.type == CONTENT_TYPES[0]): # BULLETED
                 for bullet_content in content.content:
-                    run = doc.add_paragraph(style='List Bullet').add_run()
+                    bullet = doc.add_paragraph(style='List Bullet')
+                    b_format = bullet.paragraph_format
+                    b_format.line_spacing = 1.0
+                    b_format.space_before = Pt(0)
+                    b_format.space_after = Pt(0)
+                    run = bullet.add_run()
                     run.text = bullet_content
                 paragraph = None # reset the paragraph after bullet list items
             elif (content_type == File_Content and content.type == CONTENT_TYPES[2]): # NEWLINE
                 if (paragraph != None):
-                    run = paragraph.add_run()
-                    run.add_break()
+                    # run = paragraph.add_run()
+                    # run.add_break()
+                    run.text += "/n\n"
             else:
                 print()
                 print(f"ERR: An invalid type was found when writing section content to the document ({content_type})")
