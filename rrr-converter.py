@@ -1,5 +1,7 @@
 import os
 from docx import Document
+from docx.oxml import OxmlElement
+from docx.oxml.ns import qn
 from docx.shared import RGBColor
 from docx.shared import Pt
 
@@ -476,17 +478,35 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
         #     continue
 
         # FORMATTING FOR SECTIONS.
-        header = doc.add_heading()
+        header = doc.add_paragraph()
         p_format = header.paragraph_format
         p_format.space_before = Pt(1)
         p_format.space_after = Pt(2)
         p_format.left_indent = Pt(2)
         run = header.add_run()
+        run.bold = True
         font = run.font
         font.color.rgb = RGBColor(0,0,0)
         font.name = 'Calibri'
         font.size = Pt(12)
         run.text = section.title
+
+        # Access the paragraph's XML
+        header_xml = header._p
+        pPr = header_xml.get_or_add_pPr()
+
+        # Create a new border element
+        border = OxmlElement('w:pBdr')
+
+        bottom = OxmlElement('w:bottom')
+        bottom.set(qn('w:val'), 'single')  # Border style
+        bottom.set(qn('w:sz'), '4')         # Border size
+        bottom.set(qn('w:space'), '0')      # Space
+        bottom.set(qn('w:color'), '000000')  # Border color (black)
+
+        # Add the border to the paragraph
+        border.append(bottom)
+        pPr.append(border)
 
         # Write each of the sections content.
         paragraph = None
@@ -541,7 +561,7 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
                 if (paragraph != None):
                     # run = paragraph.add_run()
                     # run.add_break()
-                    run.text += "/n\n"
+                    run.text += "\n"
             else:
                 print()
                 print(f"ERR: An invalid type was found when writing section content to the document ({content_type})")
