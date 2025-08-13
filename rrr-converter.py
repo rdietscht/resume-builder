@@ -31,6 +31,12 @@ class RRR_Parameters:
         # for header in HEADER_OPTS:
         #     self.included_headers.append(header)
 
+        # Personal User information.
+        self.user_name = '[Your Name]'
+        self.location = 'Richmond, VA'
+        self.email = 'email@emailservice.com'
+        self.phone = '(XX) XXX-XXXX'
+
         # Initialize parse location.
         self.parse_path = "\\Users\\rdiet\\Documents\\Old_Resume.docx"
 
@@ -93,10 +99,21 @@ class RRR_Parameters:
     def show_save_path(self):
         return f"  Document Save Location: {self.save_path:>44.44}\n"
 
+    def show_personal_info(self):
+        return (
+            f"  Personal User Information:\n\
+    {self.user_name}\n\
+    {self.location}\n\
+    {self.email}\n\
+    {self.phone}\n"
+        )
+
     def __str__(self):
         formatted_str = f"{'CURRENT PARAMETERS':<25}\n"
 
         # formatted_str += self.show_included_headers() # REMOVED FEATURE
+
+        formatted_str += self.show_personal_info() + "\n"
         formatted_str += self.show_parse_path() + "\n"
         formatted_str += self.show_save_path() + "\n"
 
