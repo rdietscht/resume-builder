@@ -27,10 +27,9 @@ class RRR_Parameters:
 
     def __init__(self):
 
-        # Initialize included headers.
-        self.included_headers = []
-        for header in HEADER_OPTS:
-            self.included_headers.append(header)
+        # REMOVED FEATURE
+        # for header in HEADER_OPTS:
+        #     self.included_headers.append(header)
 
         # Initialize parse location.
         self.parse_path = "\\Users\\rdiet\\Documents\\Old_Resume.docx"
@@ -97,7 +96,7 @@ class RRR_Parameters:
     def __str__(self):
         formatted_str = f"{'CURRENT PARAMETERS':<25}\n"
 
-        formatted_str += self.show_included_headers()
+        # formatted_str += self.show_included_headers() # REMOVED FEATURE
         formatted_str += self.show_parse_path() + "\n"
         formatted_str += self.show_save_path() + "\n"
 
@@ -175,49 +174,49 @@ def define_parameters():
             print("Goodbye!")
             quit()
 
-        # Handle modification of included headers list.
-        if (user_input == "H" or user_input == "HEADER"):
-            wipe_terminal()
-            while(user_input != 'Q' and user_input != 'QUIT'):
+        # Handle modification of included headers list. # REMOVED FEATURE
+        # if (user_input == "H" or user_input == "HEADER"):
+        #     wipe_terminal()
+        #     while(user_input != 'Q' and user_input != 'QUIT'):
 
-                # ADDING A HEADER.
-                if (user_input == "A" or user_input == "ADD"):
+        #         # ADDING A HEADER.
+        #         if (user_input == "A" or user_input == "ADD"):
 
-                    wipe_terminal()
-                    print(params.show_included_headers())
-                    print("Which header?")
-                    print()
-                    print("Type name of header: ", end="")
-                    user_input = input().upper()
-                    wipe_terminal()
-                    params.add_header(user_input)
+        #             wipe_terminal()
+        #             print(params.show_included_headers())
+        #             print("Which header?")
+        #             print()
+        #             print("Type name of header: ", end="")
+        #             user_input = input().upper()
+        #             wipe_terminal()
+        #             params.add_header(user_input)
 
-                    # Once a header is successfully added, return to the main menu.
-                    break
+        #             # Once a header is successfully added, return to the main menu.
+        #             break
 
-                # REMOVING A HEADER.
-                if (user_input == "R" or user_input == "REMOVE"):
+        #         # REMOVING A HEADER.
+        #         if (user_input == "R" or user_input == "REMOVE"):
 
-                    wipe_terminal()
-                    print(params.show_included_headers())
-                    print("Which header?")
-                    print()
-                    print("Type name of header: ", end="")
-                    user_input = input().upper()
-                    wipe_terminal()
-                    params.remove_header(user_input)
+        #             wipe_terminal()
+        #             print(params.show_included_headers())
+        #             print("Which header?")
+        #             print()
+        #             print("Type name of header: ", end="")
+        #             user_input = input().upper()
+        #             wipe_terminal()
+        #             params.remove_header(user_input)
 
-                    # Once a header is successfully added, return to the main menu.
-                    break
+        #             # Once a header is successfully added, return to the main menu.
+        #             break
 
-                print("Would you like to add/remove a header?")
-                print("(Q/Quit to go back to previous menu, A/Add to add, R/Remove to remove..)")
-                print()
-                print("Enter: ", end="")
+        #         print("Would you like to add/remove a header?")
+        #         print("(Q/Quit to go back to previous menu, A/Add to add, R/Remove to remove..)")
+        #         print()
+        #         print("Enter: ", end="")
 
-                user_input = input().upper()
+        #         user_input = input().upper()
 
-            print()
+        #     print()
 
         # Handle changing of parse/save location.
         if (user_input == "P" or user_input == "PARSE" or user_input == "S" or user_input == "SAVE"):
@@ -261,7 +260,7 @@ def define_parameters():
         print(params)
 
         print("Please Select an option:")
-        print("(H/Header to modify headers, P/Parse to modify parse location, S/Save to modify save location..)")
+        print("(U/User to modify personal information, P/Parse to modify parse location, S/Save to modify save location..)")
         print("(Q/Quit to cancel, N/Next to continue with the saved parameters..)")
         print()
         print("Enter: ", end="")
@@ -491,7 +490,7 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
         font.size = Pt(12)
         run.text = section.title
 
-        # Access the paragraph's XML
+        # Adding a bottom border (GPT-CODE: MODIFY CAREFULLY)
         header_xml = header._p
         pPr = header_xml.get_or_add_pPr()
 
