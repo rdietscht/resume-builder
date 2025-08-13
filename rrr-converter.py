@@ -35,7 +35,7 @@ class RRR_Parameters:
         self.user_name = '[Your Name]'
         self.location = 'Richmond, VA'
         self.email = 'email@emailservice.com'
-        self.phone = '(XX) XXX-XXXX'
+        self.phone = '(XXX) XXX-XXXX'
 
         # Initialize parse location.
         self.parse_path = "\\Users\\rdiet\\Documents\\Old_Resume.docx"
@@ -102,10 +102,10 @@ class RRR_Parameters:
     def show_personal_info(self):
         return (
             f"  Personal User Information:\n\
-    {self.user_name}\n\
-    {self.location}\n\
-    {self.email}\n\
-    {self.phone}\n"
+    1. (NAME) {self.user_name}\n\
+    2. (LOCATION) {self.location}\n\
+    3. (EMAIL) {self.email}\n\
+    4. (PHONE) {self.phone}\n"
         )
 
     def __str__(self):
@@ -234,6 +234,63 @@ def define_parameters():
         #         user_input = input().upper()
 
         #     print()
+
+        # Handle changing of personal user info.
+        if (user_input == "U" or user_input == "USER"):
+
+            wipe_terminal()
+
+            # Prompt the user to select the number corresponding to the user info being modified.
+            while (user_input != "Q" and user_input != "QUIT"):
+
+                if (user_input == "1"): # NAME
+                    wipe_terminal()
+                    print(f"Current Value: {params.user_name}")
+                    print()
+                    print("New Value: ", end="")
+                    params.user_name = input()
+                    wipe_terminal()
+                    print(f"Value \"{params.user_name}\" saved successfully")
+                    print()
+                    break
+                elif (user_input == "2"): # LOCATION
+                    wipe_terminal()
+                    print(f"Current Value: {params.location}")
+                    print()
+                    print("New Value: ", end="")
+                    params.location = input()
+                    wipe_terminal()
+                    print(f"Value \"{params.location}\" saved successfully")
+                    print()
+                    break
+                elif (user_input == "3"): # EMAIL
+                    wipe_terminal()
+                    print(f"Current Value: {params.email}")
+                    print()
+                    print("New Value: ", end="")
+                    params.email = input()
+                    wipe_terminal()
+                    print(f"Value \"{params.email}\" saved successfully")
+                    print()
+                    break
+                elif (user_input == "4"): # PHONE
+                    wipe_terminal()
+                    print(f"Current Value: {params.phone}")
+                    print()
+                    print("New Value: ", end="")
+                    params.phone = input()
+                    wipe_terminal()
+                    print(f"Value \"{params.phone}\" saved successfully")
+                    print()
+                    break
+
+                # Show users the currently saved data.
+                print(params.show_personal_info())
+                print()
+                print("Please enter the number corresponding to the information type being modified.")
+                print("(Q/Quit to cancel and go back to the previous menu..)")
+                print("Enter Number: ", end="")
+                user_input = input().upper()
 
         # Handle changing of parse/save location.
         if (user_input == "P" or user_input == "PARSE" or user_input == "S" or user_input == "SAVE"):
