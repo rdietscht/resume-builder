@@ -27,6 +27,10 @@ class RRR_Parameters:
 
     def __init__(self):
 
+        # TODO - Should add the ability to be able to specify
+        # the user information directly in the parsed document
+        # using some special syntax.
+
         # REMOVED FEATURE
         # for header in HEADER_OPTS:
         #     self.included_headers.append(header)
