@@ -548,12 +548,22 @@ def create_formatted_document(content: File_Handle, params: RRR_Parameters):
     # Add personal info at the top of the document.
     pp = doc.add_paragraph() # hehe
     pp.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = pp.add_run()
-    font = run.font
+    pp_format = pp.paragraph_format
+    pp_format.space_before = Pt(0)
+    pp_format.space_after = Pt(0)
+    pp_format.line_spacing = 1.0
+    name_run = pp.add_run()
+    font = name_run.font
     font.bold = True
     font.name = 'Calibri'
     font.size = Pt(12) 
-    run.text = params.user_name + "\n"
+    name_run.text = params.user_name + "\n"
+
+    lep_run = pp.add_run()
+    font = lep_run.font
+    font.name = 'Calibri'
+    font.size = Pt(7)
+    lep_run.text = params.location + '\n' + params.email + '\n' + params.phone
 
     # Write each section with their associated content.
     for section in content.sections:
