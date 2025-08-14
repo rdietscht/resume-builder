@@ -24,7 +24,7 @@ This utility works by scanning resume content from a very particular style of te
 * Each section header begins with a pound (#), with its title text immediately following and should be isolated on its own line.
 * A section ends when an empty line is encountered.
 * Each sub-section header within a section is surrounded by dollar sign ($).
-* Bulleted list items are surrounded by a backticks (`) where each bullet point is delimited by an asterisk (*).
+* Bulleted lists are surrounded by backticks (`) where each bullet point is delimited by an asterisk (*). All bullet list items indicated by an asterisk are surrounded by a single pair of backticks.
 * A full description paragraph is surrounded by triple double-quotes (""").
 
 > Any personal info to be listed on the resume does NOT need to be described within the scanned resume document. The `rrr-converter.py` utility will automatically add this near the top of the resume after you have specified any personal contact details during settings configuration.
