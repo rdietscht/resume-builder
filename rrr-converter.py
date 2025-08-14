@@ -482,7 +482,7 @@ def consume_section(index, lines, fs):
                     quit()
 
                 # After raw content is consumed, create an array of string values using the delimiters.
-                b_content = b_raw_content.split('*')[1:-1]
+                b_content = b_raw_content.split('*')[1:]
                 fs.content_list.append(File_Content(CONTENT_TYPES[0], b_content))
 
             elif (lines[index][i] == '$'): # NAMED SUB-HEADER ENTRANCE
